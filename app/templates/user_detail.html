@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Editace uživatele{% endblock %}
+
+{% block nav %}
+<a href="/auth" class="active">Home</a>
+{%if "admin" in user.roles %}<a href="/users" >Správa uživatelů</a>{% endif %}
+<a href="/logout">Odhlásit</a>
+{% endblock %}
+
+{% block content %}
+  <h2>{{ title }}</h2>
+
+  <section class="grid">
+
+
+  <h2>Změna jména uživatele</h2>
+  <form method="post" action="/user_change">
+    <input type="hidden" name="uziv" value="{{data.id}}">
+    <div><label>E-mail:</label> <input type="email" name="username" value="{{data.email}}" readonly></div>
+    <div><label>Full_name:</label> <input type="text" name="full_name" value="{{data.full_name}}" required></div>
+    <div><label> </label><button type="submit" name="uprav_uzivatele" value="1">Uprav uživatele</button></div>
+  </form>
+  </section>
+  <section class="grid">
+  <h2>Změna hesla</h2>
+  {% if heslo_zmeneno %} <p>Heslo úspěšně změněno</p>{% endif %}
+
+  <form method="post" action="/user_change">
+    <input type="hidden" name="uziv" value="{{data.id}}">
+    <div><label>Heslo:</label> <input type="password" name="password" required></div>
+    <div><label> </label><button type="submit" name="zmen_heslo" value="1">Změn heslo</button></div>
+  </form>
+  </section>
+  <section class="grid">
+  <h2>Správa rolí uživatele</h2>
+    <form method="post" action="/user_change">
+    <input type="hidden" name="uziv" value="{{data.id}}">
+    <div><label>Role:</label> 
+        <select name="role">
+            {% for i,r in role.items() %}
+            <option value={{i}}>{{r}}
+            {% endfor %}
+        </select>
+    </div>
+    <div><label> </label><button type="submit" name="pridej_roli" value=1>Přidej roli</button></div>
+  </form>
+
+   <h3>Seznam rolí</h3>
+  <table class="data">
+    <tr><th>Role</th><th>Odebrat</th></tr>
+
+    {% for r in user_roles %}
+    <tr><td>{{r["role"]}}</td>
+        <td>
+              <form method="post" action="/delete_role">
+              <input type="submit" value="Odeber roli " name="delete">
+              <input type="hidden" name="user_role_id" value="{{r["role_id"]}}">
+              <input type="hidden" name="uziv" value="{{data.id}}">
+            </form>   
+        </td>
+    </tr>
+    {% endfor%}
+
+  </table>
+  </section>    
+
+
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Profil{% endblock %}
+{% block content %}
+  <h2>{{ title }}</h2>
+
+  <section class="grid">
+
+
+  <h2>Můj profil</h2>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>Role:</strong> {{ user.roles|join(", ") }}</p>
+  <form method="post" action="/logout"><button>Odhlásit</button></form>
+  </section>
+{% endblock %}

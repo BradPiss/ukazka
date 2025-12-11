@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+  <h2>{{ title }}</h2>
+
+  <section class="grid">
+    <div>
+      <h3>Nová položka</h3>
+      <form method="post" action="{{ url_for('items_ui_post') }}">
+        <div><label>Název: </label><input type="text" name="nazev" required></label></div>
+        <div><label>Cena: </label><input type="number" step="0.01" name="cena" required></div>
+        <div><label>Popis: </label><textarea name="popis" rows="3"></textarea></label></div>
+        <div><label></label><button type="submit">Uložit</button></div>
+      </form>
+    </div>
+
+    <div>
+      <h3>Seznam položek</h3>
+      {% if items|length == 0 %}
+        <p>Žádné položky k zobrazení.</p>
+      {% else %}
+        <table class="data">
+          <tr><th>Název</th><th>Cena</th></tr>
+          {% for it in items %}
+            <tr><td>{{ it.nazev }}</td><td>{{ "%.2f"|format(it.cena) }} Kč</td></tr>
+            {% if it.popis %}<tr><td colspan="2">{{ it.popis }}</td></tr>{% endif %}
+           
+          {% endfor %}
+        </table>
+        <p><em>Celkem: {{ "%.2f"|format(total) }} Kč</em></p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

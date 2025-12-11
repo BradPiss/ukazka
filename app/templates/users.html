@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Správa uživatelů{% endblock %}
+
+{% block nav %}
+<a href="/auth" class="active">Home</a>
+{%if "admin" in user.roles %}<a href="/users" >Správa uživatelů</a>{% endif %}
+<a href="/logout">Odhlásit</a>
+{% endblock %}
+
+{% block content %}
+  <h2>{{ title }}</h2>
+
+  <section class="grid">
+  <h2>Přidej uživatele</h2>
+  {% if error %}<p style="color:#b00">{{ error }}</p>{% endif %}
+  <form method="post" action="/users">
+    <div><label>E-mail:</label> <input type="email" name="username" required></div>
+    <div><label>Full_name:</label> <input type="text" name="full_name" required></div>
+    <div><label>Heslo:</label> <input type="password" name="password" required></div>
+    <div><label></label><button type="submit">Vytvořit</button></div>
+  </form>
+
+  <h2>Seznam uživatelů</h2>
+  {% if users %}
+  <table class="data">
+    <tr><th>Email</th><th>Jméno příjmení</th><th></th></tr>
+    {% for u in users%}
+    <tr><td>{{u["email"]}}</td><td>{{u["full_name"]}}</td>
+            <td>
+              <form method="post" action="/user_change">
+              <input type="submit" value="Změna" name="edit">
+              <input type="hidden" name="uziv" value="{{u["id"]}}">
+            </form>  
+            </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+  </section>
+{% endblock %}

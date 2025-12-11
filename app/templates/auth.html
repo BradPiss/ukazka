@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Správa uživatelů{% endblock %}
+
+{% block nav %}
+<a href="/auth" class="active">Home</a>
+{%if "admin" in user.roles %}<a href="/users" >Správa uživatelů</a>{% endif %}
+<a href="/logout">Odhlásit</a>
+{% endblock %}
+
+{% block content %}
+  <h2>{{ title }}</h2>
+  <section class="grid">
+  <h2>Vítej přihlášený uživateli</h2>
+
+  </section>
+{% endblock %}

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "hala1/teplota",
+    "topic": "hala1/teplota"
+  },
+  {
+    "id": 2,
+    "name": "hala2/teplota",
+    "topic": "hala2/teplota"
+  },
+  {
+    "id": 3,
+    "name": "hala3/teplota",
+    "topic": "hala3/teplota"
+  },
+  {
+    "id": 4,
+    "name": "nové zařízení",
+    "topic": "hala4/teplota"
+  }
+]
